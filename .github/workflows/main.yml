@@ -17,4 +17,4 @@ jobs:
       - name: Build and test
         run: ./gradlew clean assemble test
       - name: Static code analysis
-        run: ./gradle clean checkstyleMain
+        run: ./gradlew clean checkstyleMain
