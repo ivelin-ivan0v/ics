@@ -1,4 +1,9 @@
 package com.vmwaretalentboost.ics.repository;
 
-public class ImageRepository {
+import com.vmwaretalentboost.ics.model.Image;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ImageRepository extends JpaRepository<Image, String> {
 }
