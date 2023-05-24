@@ -1,17 +1,15 @@
-package com.vmwaretalentboost.ics.service;
+package com.vmwaretalentboost.ics.utils;
 
-import com.clarifai.grpc.api.*;
 import com.clarifai.channel.ClarifaiChannel;
 import com.clarifai.credentials.ClarifaiCallCredentials;
+import com.clarifai.grpc.api.*;
 import com.clarifai.grpc.api.status.StatusCode;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Service
-public class ImageService {
-
+public class ClarifaiService {
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // In this section, we set the user authentication, user and app ID, model details, and the URL
     // of the image we want as an input. Change these strings to run your own example.
@@ -28,11 +26,13 @@ public class ImageService {
     static final String MODEL_VERSION_ID = "aa7f35c01e0642fda5cf400f543e7c40";
     static final String IMAGE_URL = "https://samples.clarifai.com/metro-north.jpg";
 
+    static final String ANALYSIS_SERVICE = "Clarifai";
+
     ///////////////////////////////////////////////////////////////////////////////////
     // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
     ///////////////////////////////////////////////////////////////////////////////////
 
-    public Map classifyImage(String image_url) {
+    public static List<Concept> classifyImage(String image_url) {
         Map<String, Float> tags = new HashMap<>();
 
         V2Grpc.V2BlockingStub stub = V2Grpc.newBlockingStub(ClarifaiChannel.INSTANCE.getGrpcChannel())
@@ -60,11 +60,10 @@ public class ImageService {
         // Since we have one input, one output will exist here.
         Output output = postModelOutputsResponse.getOutputs(0);
 
-        for (Concept concept : output.getData().getConceptsList()) {
-            //System.out.printf("%s %.2f%n", concept.getName(), concept.getValue());
-            tags.put(concept.getName(), concept.getValue());
-        }
+//        for (Concept concept : output.getData().getConceptsList()) {
+//            System.out.printf("%s %.2f%n", concept.getName(), concept.getValue());
+//        }
 
-        return tags;
+        return output.getData().getConceptsList();
     }
 }
