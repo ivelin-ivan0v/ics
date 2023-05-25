@@ -12,6 +12,8 @@ jobs:
         uses: actions/setup-java@v1.4.4
         with:
           java-version: '17'
+      - name: Set perms
+        run: cd backend && chmod +x ./gradlew
       - name: Build without tests
         run: cd backend && ./gradlew clean bootJar
       - name: Build and test
