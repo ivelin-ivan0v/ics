@@ -13,10 +13,10 @@ jobs:
         with:
           java-version: '17'
       - name: Set permissions
-        run: chmod +x gradlew
+        run: chmod +x ./backend/gradlew
       - name: Build without tests
         run: ./backend/gradlew clean bootJar
       - name: Build and test
-        run: ./gradlew clean assemble test
+        run: ./backend/gradlew clean assemble test
       - name: Static code analysis
-        run: ./gradlew clean checkstyleMain
+        run: ./backend/gradlew clean checkstyleMain
