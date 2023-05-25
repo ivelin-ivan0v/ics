@@ -13,7 +13,7 @@ jobs:
         with:
           java-version: '17'
       - name: Build without tests
-        run: ./gradlew clean bootJar
+        run: ./backend/gradlew clean bootJar
       - name: Build and test
         run: ./gradlew clean assemble test
       - name: Static code analysis
