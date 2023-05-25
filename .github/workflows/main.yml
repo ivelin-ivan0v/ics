@@ -12,11 +12,9 @@ jobs:
         uses: actions/setup-java@v1.4.4
         with:
           java-version: '17'
-      - name: Set permissions
-        run: cd backend
       - name: Build without tests
-        run: ./gradlew clean bootJar
+        run: cd backend && ./gradlew clean bootJar
       - name: Build and test
-        run: ./gradlew clean assemble test
+        run: cd backend && ./gradlew clean assemble test
       - name: Static code analysis
-        run: ./gradlew clean checkstyleMain
+        run: cd backend && ./gradlew clean checkstyleMain
