@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageComponent } from './image/image.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GalleryComponent } from './gallery/gallery.component';
+import { ThemeService } from './core/theme.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
