@@ -10,6 +10,8 @@ import { ImageComponent } from './image/image.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ThemeService } from './core/theme.service';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ThemeService } from './core/theme.service';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    TypeaheadModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

@@ -1,7 +1,39 @@
 <div class="container-fluid">
   <div class="container mt-3 ">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Search by comma separated tags" [(ngModel)]="searchQuery" (keyup)="onSearch()">
+      <!-- <input type="text" class="form-control" placeholder="Search by comma separated tags" [(ngModel)]="searchQuery" (keyup)="onSearch()"> -->
+    </div>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search tags"
+        [formControl]="tagCtrl"
+        [typeahead]="tagSearch"
+        [typeaheadAsync]="true"
+        (typeaheadOnSelect)="onTagSelect($event.item)"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-primary"
+          (click)="addTag()"
+          [disabled]="!tagCtrl.value || tags.includes(tagCtrl.value)"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div
+        class="badge badge-pill badge-primary text-bg-secondary mr-1"
+        *ngFor="let tag of selectedTags"
+        (click)="removeTag(tag)"
+        style="cursor: pointer"
+      >
+        {{ tag }}
+        <span class="badge badge-light">x</span>
+      </div>
     </div>
   </div>
   <div class="row mt-1">

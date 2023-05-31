@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable, Observer, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gallery',
@@ -12,6 +15,10 @@ export class GalleryComponent implements OnInit {
   allImages: any[] = [];
   searchQuery: string = '';
   filteredGalleryItems: any[] = [];
+  tags: string[] = ["cat", "animal", "cute", "kitten", "photo"];
+  selectedTags: string[] = [];
+  tagCtrl = new FormControl();
+  private searchTerms = new Subject<string>();
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {
     this.allImages = [
@@ -58,6 +65,53 @@ export class GalleryComponent implements OnInit {
     });
 
   }
+  
+  tagSearch = new Observable((text$: Observer<string | undefined>) =>{
+    text$.next(this.tagCtrl.value);
+  }).pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    switchMap((term: string) => this.searchTags(term))
+  );
+
+
+  searchTags(term: string): Observable<string[]> {
+    const matchingTags = this.tags.filter((tag) =>
+      tag.toLowerCase().includes(term.toLowerCase())
+    );
+    return of(matchingTags);
+  }
+
+  onTagSelect(tag: string): void {
+    this.addTag();
+  }
+
+  addTag(): void {
+    const tagValue = this.tagCtrl.value.trim();
+    if (tagValue && !this.selectedTags.includes(tagValue)) {
+      this.selectedTags.push(tagValue);
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { tags: this.selectedTags.join(',') },
+        queryParamsHandling: 'merge'
+      });
+      this.filterGalleryItems();
+    }
+    this.tagCtrl.reset();
+  }
+
+  removeTag(tag: string): void {
+    const index = this.selectedTags.indexOf(tag);
+    if (index !== -1) {
+      this.selectedTags.splice(index, 1);
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { tags: this.selectedTags.join(',') },
+        queryParamsHandling: 'merge'
+      });
+      this.filterGalleryItems();
+    }
+  }
   onClick(image: any) {
     this.router.navigate(['/image', image.id]);
   }
@@ -79,12 +133,12 @@ export class GalleryComponent implements OnInit {
   }
 
   filterGalleryItems() {
-    if (!this.searchQuery) {
+    if (!this.selectedTags.length && !this.searchQuery) {
       this.filteredGalleryItems = this.allImages;
     } else {
-      const tags = this.searchQuery.split(',').map(tag => tag.trim().toLowerCase());
+      // const tags = this.searchQuery.split(',').map(tag => tag.trim().toLowerCase());
       this.filteredGalleryItems = this.allImages.filter(item => {
-        return tags.every(tag => item.tags.some((itemTag:any) => itemTag.name.toLowerCase().includes(tag)));
+        return this.selectedTags.every(tag => item.tags.some((itemTag:any) => itemTag.name.toLowerCase().includes(tag)));
       });
     }
   }

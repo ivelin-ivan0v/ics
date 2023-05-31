@@ -27,7 +27,17 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/assets/light.scss",
+                "bundleName": "light",
+                "inject": true
+            },
+            {
+                "input": "src/assets/dark.scss",
+                "bundleName": "dark",
+                "inject": false
+            }
             ],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
