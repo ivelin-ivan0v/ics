@@ -21,44 +21,8 @@ export class GalleryComponent implements OnInit {
   private searchTerms = new Subject<string>();
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {
-    this.allImages = [
-      {
-        id:1,
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
-        tags: [
-          { name: 'cat', confidence: 0.9 },
-          { name: 'animal', confidence: 0.8 },
-          { name: 'cute', confidence: 0.7 },
-        ],
-        analyzedOn: Date.now(),
-      },
-      {
-        id:2,
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
-        tags: [
-          { name: 'animal', confidence: 0.8 },
-
-        ],
-        analyzedOn: Date.now(),
-      },
-      {
-        id:3,
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
-        tags: [
-          { name: 'cat', confidence: 0.9 },
-
-        ],
-        analyzedOn: Date.now(),
-      },
-      {
-        id:4,
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
-        tags: [
-          { name: 'cute', confidence: 0.7 },
-        ],
-        analyzedOn: Date.now(),
-      },
-    ];
+    this.getAllImages()
+   
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['tags'] || '';
       this.filterGalleryItems();
@@ -115,10 +79,11 @@ export class GalleryComponent implements OnInit {
   onClick(image: any) {
     this.router.navigate(['/image', image.id]);
   }
-  getAllImages(imageUrl: string) {
+  getAllImages() {
     this.http
-      .get('http://localhost:8080/images' + imageUrl)
+      .get('http://localhost:8080/images')
       .subscribe((response) => {
+        console.dir(response);
         this.allImages.concat(response);
       });
   }
@@ -143,3 +108,43 @@ export class GalleryComponent implements OnInit {
     }
   }
 }
+
+
+// this.allImages = [
+//   {
+//     id:1,
+//     url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
+//     tags: [
+//       { name: 'cat', confidence: 0.9 },
+//       { name: 'animal', confidence: 0.8 },
+//       { name: 'cute', confidence: 0.7 },
+//     ],
+//     analyzedOn: Date.now(),
+//   },
+//   {
+//     id:2,
+//     url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
+//     tags: [
+//       { name: 'animal', confidence: 0.8 },
+
+//     ],
+//     analyzedOn: Date.now(),
+//   },
+//   {
+//     id:3,
+//     url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
+//     tags: [
+//       { name: 'cat', confidence: 0.9 },
+
+//     ],
+//     analyzedOn: Date.now(),
+//   },
+//   {
+//     id:4,
+//     url: 'https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&resize=1200:*',
+//     tags: [
+//       { name: 'cute', confidence: 0.7 },
+//     ],
+//     analyzedOn: Date.now(),
+//   },
+// ];
