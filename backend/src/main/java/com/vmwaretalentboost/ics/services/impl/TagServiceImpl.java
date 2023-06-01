@@ -26,7 +26,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<TagDTO> getTagsAndCount(){
+    public List<TagDTO> getTagsAndCount() {
         return tagRepository.getTagsAndCount();
     }
 
