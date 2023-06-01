@@ -1,8 +1,13 @@
 package com.vmwaretalentboost.ics.services.impl;
 
 import com.vmwaretalentboost.ics.models.Image;
+import com.vmwaretalentboost.ics.models.dto.ImageDTO;
 import com.vmwaretalentboost.ics.repositories.ImageRepository;
 import com.vmwaretalentboost.ics.services.ImageService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -63,8 +69,28 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findById(id);
     }
 
-    public void getImageAndTagsById(Long id){
+    @Override
+    public ImageDTO getImageAndTagsById(Long id) {
+        ImageDTO imageDTO = new ImageDTO();
+        try {
+            Image image = imageRepository.findById(id).get();
+            imageDTO.setImage(image);
+            imageDTO.setImageTagsList(imageTagsService.getImageTagsByImage(image));
+            return imageDTO;
+        } catch (NoSuchElementException ex) {
+            return imageDTO;
+        }
 
+    }
+
+    @Override
+    public List<ImageDTO> getAllImages() {
+        List<Image> images = imageRepository.findAll();
+        List<ImageDTO> returnList = new ArrayList<>();
+        for (Image image : images) {
+            returnList.add(getImageAndTagsById(image.getId()));
+        }
+        return returnList;
     }
 
     @Override

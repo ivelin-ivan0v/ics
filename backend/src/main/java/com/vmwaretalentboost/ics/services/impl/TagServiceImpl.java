@@ -1,6 +1,7 @@
 package com.vmwaretalentboost.ics.services.impl;
 
 import com.vmwaretalentboost.ics.models.Tag;
+import com.vmwaretalentboost.ics.models.dto.TagDTO;
 import com.vmwaretalentboost.ics.repositories.TagRepository;
 import com.vmwaretalentboost.ics.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class TagServiceImpl implements TagService {
     public Tag addTag(String tagName) {
         Tag tag = new Tag(tagName);
         return tagRepository.save(tag);
+    }
+
+    @Override
+    public List<TagDTO> getTagsAndCount(){
+        return tagRepository.getTagsAndCount();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.clarifai.grpc.api.Concept;
 import com.vmwaretalentboost.ics.models.Image;
 import com.vmwaretalentboost.ics.models.ImageTags;
 import com.vmwaretalentboost.ics.models.ImageTagsCompositeKey;
+import com.vmwaretalentboost.ics.models.dto.ImageTagsDTO;
 import com.vmwaretalentboost.ics.repositories.ImageTagsRepository;
 import com.vmwaretalentboost.ics.services.ImageTagsService;
 import com.vmwaretalentboost.ics.utils.ClarifaiService;
@@ -48,11 +49,12 @@ public class ImageTagsServiceImpl implements ImageTagsService {
     }
 
     @Override
-    public List<Object[]> getImageTagsByImage(Image image) {
+    public List<ImageTagsDTO> getImageTagsByImage(Image image) {
         //return imageTagsRepository.findAllById(image);
         return imageTagsRepository.getTagsAndConfidenceByImage(image);
     }
 
+    @Override
     public List<ImageTags> getImagesHavingTag(String tagName) {
         return imageTagsRepository.findAllByTagName(tagName);
     }
