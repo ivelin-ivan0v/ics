@@ -1,3 +1,9 @@
 .cursor {
     cursor: pointer !important;
 }
+
+.card-img {
+    height: 30vh; /* Adjust this value as needed */
+    width: 100%;
+    object-fit: contain;
+  }

@@ -1,25 +1,35 @@
-<div class="container-fluid">
-  <div class="row mt-5 pt-5">
-    <div class="col-8 offset-2 mt-5 pt-5">
-      <div class="card">
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-8 offset-2">
+      <div class="card bg-primary">
         <div class="card-body">
           <div class="row">
             <div class="col-10">
-              <img src="{{ imageInfo.url }}" class="img-fluid" />
+              <img src="{{ imageInfo.image.url }}" class="img-fluid w-100" />
             </div>
             <div class="col-2">
-              <div *ngFor="let tag of imageInfo.tags">
-                <span
-                  class="badge badge-pill badge-primary text-bg-secondary"
-                  >{{ tag.name }}</span
-                >
+              <div class="row">
+                <div class="col-12">
+                  <div class="d-flex flex-wrap">
+                    <span
+                      *ngFor="let tag of imageInfo.imageTagsList"
+                      class="badge badge-pill badge-primary text-bg-secondary me-1 mb-1" [tooltip]="tag.confidence"
+                      placement="top"
+                    >
+                      {{ tag.tagName }}
+                     
+                    </span>
+                    
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="card-footer">
-          <span>Analyzed on: {{ imageInfo.analyzedOn }}</span>
+          <span>Analyzed on: {{ imageInfo.image.analysisTime }}</span>
         </div>
+        
       </div>
     </div>
   </div>

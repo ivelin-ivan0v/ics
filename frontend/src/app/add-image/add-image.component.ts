@@ -15,13 +15,14 @@ export class AddImageComponent implements OnInit {
     private http: HttpClient,
     private router: Router
   ) {
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
     this.urlForm = this.formBuilder.group({
       url: [
         '',
         [
           Validators.required,
           Validators.pattern(
-            '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+            urlRegex
           ),
         ],
       ],
@@ -29,12 +30,12 @@ export class AddImageComponent implements OnInit {
   }
   ngOnInit(): void {}
   analyzeImage() {
-    this.router.navigate(['/image', 1]);
-    // const url = this.urlForm.get('url')?.value;
-    // this.http
-    //   .post('http://localhost:8080/images', { url })
-    //   .subscribe((response) => {
-    //     console.log(response);
-    //   });
+    const url = this.urlForm.get('url')?.value;
+    this.http
+      .post('http://localhost:8080/images?url=' + url, {})
+      .subscribe((response: any) => {
+        console.log(response);
+        this.router.navigate(["/image",  response.image.id])
+      });
   }
 }
