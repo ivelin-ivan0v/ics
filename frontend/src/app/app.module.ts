@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageComponent } from './image/image.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GalleryComponent } from './gallery/gallery.component';
+import { ThemeService } from './core/theme.service';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,13 @@ import { GalleryComponent } from './gallery/gallery.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    TypeaheadModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

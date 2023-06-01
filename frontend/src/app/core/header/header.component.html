@@ -1,22 +1,5 @@
-<!-- <header class="header header-6">
-  <div class="branding">
-    <div class="clr-row clr-align-items-center">
-      <i class="fa-solid fa-icons mr-2"></i>
-      Image Classification Service
-    </div>
-  </div>
-  <div class="header-nav"></div>
-  <div class="header-actions">
-    <a href="javascript://" class="active nav-link nav-text">Analyze</a>
-    <a href="javascript://" class="nav-link nav-text">Gallery</a>
-    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
-      <cds-icon shape="cog"></cds-icon>
-    </a>
-  </div>
-</header> -->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <i class="fa-solid fa-icons mr-2"></i>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-col">
+  <i class="fa-solid fa-icons ms-2 me-2 text-white"></i>
   <a class="navbar-brand" href="#">Image Classification Service</a>
 
   <div class="collapse navbar-collapse justify-content-end">
@@ -29,11 +12,10 @@
       </li>
     </ul>
 
-    <div class="form-inline">
-      <label class="text-light mr-2">Theme:</label>
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="themeSwitch" />
-        <label class="custom-control-label" for="themeSwitch"></label>
+    <div class="form-inline me-4">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (click)="switchTheme()">
+        <label class="form-check-label text-white" for="flexSwitchCheckDefault">Theme Switch</label>
       </div>
     </div>
   </div>
