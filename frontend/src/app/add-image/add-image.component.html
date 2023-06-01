@@ -1,1 +1,42 @@
-<p>add-image works!</p>
+<div class="container-fluid">
+  <div class="row mt-5 pt-5">
+    <div class="col-8 offset-2 mt-5 pt-5">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="urlForm">
+            <label for="url">Analyze Image </label>
+            <input
+              type="text"
+              formControlName="url"
+              placeholder="Enter image URL"
+              required
+              pattern="^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6}\.?)(\/[\w.-]*)*\/?$"
+              class="w-75 form-control"
+            />
+
+            <div
+              *ngIf="urlForm.get('url')?.errors && urlForm.get('url')?.dirty"
+              class="error-message"
+            >
+              <div *ngIf="urlForm.get('url')?.errors?.['pattern']">
+                URL is required.
+              </div>
+              <div *ngIf="urlForm.get('url')?.errors?.['pattern']">
+                Invalid URL.
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              [disabled]="urlForm.invalid"
+              class="btn btn-primary mt-3"
+              (click)="analyzeImage()"
+            >
+              Analyze
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
