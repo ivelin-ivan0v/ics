@@ -11,14 +11,16 @@
               <div class="row">
                 <div class="col-12">
                   <div class="d-flex flex-wrap">
-                    <span
+                    <button
                       *ngFor="let tag of imageInfo.imageTagsList"
-                      class="badge badge-pill badge-primary text-bg-secondary me-1 mb-1" [tooltip]="tag.confidence"
+                      class="badge badge-pill badge-primary text-bg-secondary me-1 mb-1"
+                      ngxTooltip="tag.confidence"
                       placement="top"
+                      (click)="onClick(tag)"
                     >
                       {{ tag.tagName }}
                      
-                    </span>
+                    </button>
                     
                   </div>
                 </div>

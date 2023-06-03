@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-image',
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ImageComponent implements OnInit {
   imageId: string = '';
   imageInfo: any;
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router:Router) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.imageId = params['id'];
@@ -25,5 +25,9 @@ export class ImageComponent implements OnInit {
         this.imageInfo = response;
         console.log(this.imageInfo);
       });
+  }
+
+  onClick(tag: any){
+    this.router.navigate(['/gallery'], {queryParams: {tags:tag.tagName}});
   }
 }

@@ -1,39 +1,45 @@
 <div class="container-fluid">
   <div class="row mt-5 pt-5">
     <div class="col-8 offset-2 mt-5 pt-5">
-      <div class="card">
+      <div class="card bg-primary text-center border-0">
         <div class="card-body">
           <form [formGroup]="urlForm">
-            <label for="url">Analyze Image</label>
-            <input
-              type="text"
-              formControlName="url"
-              placeholder="Enter image URL"
-              required
-              pattern="^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6}\.?)(\/[\w.-]*)*\/?$"
-              class="w-75 form-control"
-            />
+            <div class="d-flex justify-content-center mb-3">
+              <label for="url"><b>Point to an image to tag ...</b></label>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+              <input
+                type="text"
+                formControlName="url"
+                placeholder="Enter image URL"
+                required
+                pattern="^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6}\.?)(\/[\w.-]*)*\/?$"
+                class="w-75 form-control"
+              />
+            </div>
 
             <div
               *ngIf="urlForm.get('url')?.errors && urlForm.get('url')?.dirty"
               class="error-message"
             >
-              <div *ngIf="urlForm.get('url')?.errors?.['pattern']">
+              <div *ngIf="urlForm.get('url')?.errors?.['required']">
                 URL is required.
               </div>
               <div *ngIf="urlForm.get('url')?.errors?.['pattern']">
                 Invalid URL.
               </div>
             </div>
-
-            <button
+            
+            <div>
+              <button
               type="submit"
               [disabled]="urlForm.invalid"
-              class="btn btn-primary mt-3"
+              class="btn btn-success mt-3"
               (click)="analyzeImage()"
             >
               Analyze
             </button>
+            </div>
           </form>
         </div>
       </div>
