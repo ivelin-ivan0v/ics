@@ -1,14 +1,15 @@
 package com.vmwaretalentboost.ics.controllers;
 
-import com.vmwaretalentboost.ics.models.Tag;
 import com.vmwaretalentboost.ics.models.dto.TagDTO;
 import com.vmwaretalentboost.ics.services.impl.TagServiceImpl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
@@ -23,16 +24,7 @@ public class TagController {
     }
 
     @GetMapping
-    public List<Tag> getAllTags() {
-        return tagServiceImpl.getAllTags();
-    }
-
-    /*
-    * /tags returns only tagName because it is implemented in the service to delete not existing tags
-    * and count variable is not required but i still added it as an additional endpoint tags/count
-    * */
-    @GetMapping("/count")
-    public List<TagDTO> getAllTagCount() {
+    public List<TagDTO> getAllTags() {
         return tagServiceImpl.getTagsAndCount();
     }
 }

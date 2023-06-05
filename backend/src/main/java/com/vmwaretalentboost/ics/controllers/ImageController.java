@@ -4,8 +4,8 @@ import com.vmwaretalentboost.ics.models.Image;
 import com.vmwaretalentboost.ics.models.dto.ImageDTO;
 import com.vmwaretalentboost.ics.models.dto.ImageTagsDTO;
 import com.vmwaretalentboost.ics.services.impl.ImageServiceImpl;
-import com.vmwaretalentboost.ics.services.impl.ImageTagsServiceImpl;
 import com.vmwaretalentboost.ics.utils.URLValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,10 @@ import java.util.List;
 @RequestMapping("/images")
 public class ImageController {
     private final ImageServiceImpl imageServiceImpl;
-    private final ImageTagsServiceImpl imageTagsServiceImpl;
 
     @Autowired
-    public ImageController(ImageServiceImpl imageServiceImpl, ImageTagsServiceImpl imageTagsServiceImpl) {
+    public ImageController(ImageServiceImpl imageServiceImpl) {
         this.imageServiceImpl = imageServiceImpl;
-        this.imageTagsServiceImpl = imageTagsServiceImpl;
     }
 
     @GetMapping

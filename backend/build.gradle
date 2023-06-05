@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '3.0.0'
 }
 
 tasks.named('test') {
