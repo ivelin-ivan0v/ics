@@ -12,7 +12,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ThemeService } from './core/theme.service';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import {TooltipModule } from "ngx-bootstrap/tooltip"
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {TooltipModule } from "ngx-bootstrap/tooltip"
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TypeaheadModule.forRoot(),
-    TooltipModule.forRoot(),
+    TooltipModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

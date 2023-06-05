@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-add-image',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class AddImageComponent implements OnInit {
   urlForm: FormGroup;
+  isLoading: boolean = false;
+  hasError: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -30,12 +33,16 @@ export class AddImageComponent implements OnInit {
   }
   ngOnInit(): void {}
   analyzeImage() {
+    this.isLoading = true;
     const url = this.urlForm.get('url')?.value;
     this.http
       .post('http://localhost:8080/images?url=' + url, {})
       .subscribe((response: any) => {
-        console.log(response);
+        this.isLoading = false;
         this.router.navigate(["/image",  response.image.id])
-      });
+  }, (error) => {
+    this.isLoading = false;
+    this.hasError = true;
+  });
   }
 }

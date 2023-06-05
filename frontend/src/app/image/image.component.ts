@@ -23,7 +23,6 @@ export class ImageComponent implements OnInit {
       .get('http://localhost:8080/images/' + imageId)
       .subscribe((response) => {
         this.imageInfo = response;
-        console.log(this.imageInfo);
       });
   }
 

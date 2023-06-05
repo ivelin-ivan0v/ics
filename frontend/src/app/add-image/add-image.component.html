@@ -28,10 +28,19 @@
               <div *ngIf="urlForm.get('url')?.errors?.['pattern']">
                 Invalid URL.
               </div>
+       
+            </div>
+            <div *ngIf="hasError" class="error-message">
+              There was an error while analyzing the image. Please try again.
             </div>
             
             <div>
+              <button class="btn btn-success mt-3" type="button" disabled *ngIf="isLoading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading...</span>
+              </button>
               <button
+              *ngIf="!isLoading"
               type="submit"
               [disabled]="urlForm.invalid"
               class="btn btn-success mt-3"

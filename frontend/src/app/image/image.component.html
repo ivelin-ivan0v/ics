@@ -1,5 +1,7 @@
 <div class="container">
+  
   <div class="row mt-5">
+    
     <div class="col-8 offset-2">
       <div class="card bg-primary border-0">
         <div class="card-body">
@@ -8,20 +10,27 @@
               <img src="{{ imageInfo.image.url }}" class="img-fluid w-100" />
             </div>
             <div class="col-2">
+
               <div class="row">
                 <div class="col-12">
                   <div class="d-flex flex-wrap">
-                    <button
-                      *ngFor="let tag of imageInfo.imageTagsList"
-                      class="badge badge-pill badge-primary text-bg-secondary me-1 mb-1"
-                      ngxTooltip="tag.confidence"
-                      placement="top"
-                      (click)="onClick(tag)"
+
+
+
+                    <span
+                    *ngFor="let tag of imageInfo.imageTagsList"
+                    class="badge badge-pill badge-primary text-bg-success me-1 mb-1"
+                    [pTooltip]="'confidence ' + tag.confidence"
+                    tooltipPosition="top"
+                    appendTo="body"
+                    tooltipZIndex="9999"
+                    (click)="onClick(tag)"
                     >
-                      {{ tag.tagName }}
-                     
-                    </button>
+                    {{ tag.tagName }}
                     
+                    </span>
+                  
+
                   </div>
                 </div>
               </div>
