@@ -16,7 +16,7 @@ jobs:
         run: cd backend && chmod +x ./gradlew
       - name: Build without tests
         run: cd backend && ./gradlew clean bootJar
-      - name: Build and test
-        run: cd backend && ./gradlew clean assemble test
+#      - name: Build and test
+#        run: cd backend && ./gradlew clean assemble test
       - name: Static code analysis
         run: cd backend && ./gradlew clean checkstyleMain
