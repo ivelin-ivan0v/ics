@@ -1,47 +1,46 @@
-<div class="container">
-  
-  <div class="row mt-5">
-    
-    <div class="col-8 offset-2">
-      <div class="card bg-primary border-0">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-10">
-              <img src="{{ imageInfo.image.url }}" class="img-fluid w-100" />
-            </div>
-            <div class="col-2">
+<div class="container row mt-5 col-8 offset-2">
+  <div class="card bg-primary border-0 w-100 h-100">
 
-              <div class="row">
-                <div class="col-12">
-                  <div class="d-flex flex-wrap">
+    <div class="card-body row">
 
+      <div class="col-10">
+        <img src="{{ imageInfo.image.url }}" class="img-fluid" />
+      </div>
 
+      <div class="col-2 " *ngIf="isPortrait">
+        <div class="row col-12">
+          <div class="d-flex flex-wrap">
 
-                    <span
-                    *ngFor="let tag of imageInfo.imageTagsList"
-                    class="badge badge-pill badge-primary text-bg-success me-1 mb-1"
-                    [pTooltip]="'confidence ' + tag.confidence"
-                    tooltipPosition="top"
-                    appendTo="body"
-                    tooltipZIndex="9999"
-                    (click)="onClick(tag)"
-                    >
-                    {{ tag.tagName }}
-                    
-                    </span>
-                  
+            <span *ngFor="let tag of imageInfo.imageTagsList"
+              class="badge badge-pill badge-primary text-bg-success me-1 mb-1"
+              [pTooltip]="'confidence ' + tag.confidence" tooltipPosition="top" appendTo="body" tooltipZIndex="9999"
+              (click)="onClick(tag)">
+              {{ tag.tagName }}
+            </span>
 
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-        <div class="card-footer border-0 bg-primary">
-          <span>Analyzed on: {{ imageInfo.image.analysisTime }}</span>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-12 " *ngIf="!isPortrait">
+        <div class="d-flex flex-wrap">
+
+          <span *ngFor="let tag of imageInfo.imageTagsList"
+            class="badge badge-pill badge-primary text-bg-success me-1 mb-1" [pTooltip]="'confidence ' + tag.confidence"
+            tooltipPosition="top" appendTo="body" tooltipZIndex="9999" (click)="onClick(tag)">
+            {{ tag.tagName }}
+          </span>
+
         </div>
-        
       </div>
     </div>
+
+    <div class="card-footer border-0 bg-primary">
+      <span>Analyzed on: {{ imageInfo.image.analysisTime }}</span>
+    </div>
+
   </div>
 </div>

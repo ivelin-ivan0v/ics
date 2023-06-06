@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ImageComponent implements OnInit {
   imageId: string = '';
   imageInfo: any;
+  isPortrait: boolean = false;
+
   constructor(private http: HttpClient, private route: ActivatedRoute, private router:Router) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -23,6 +25,11 @@ export class ImageComponent implements OnInit {
       .get('http://localhost:8080/images/' + imageId)
       .subscribe((response) => {
         this.imageInfo = response;
+
+        // Determine the image orientation based on height and width
+        const imageHeight = this.imageInfo.image.height;
+        const imageWidth = this.imageInfo.image.width;
+        this.isPortrait = imageHeight > imageWidth;
       });
   }
 
