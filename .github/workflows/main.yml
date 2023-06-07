@@ -33,6 +33,6 @@ jobs:
       - name: Build and test
         run: |
             cd backend 
-            ./gradlew clean assemble test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/ics -Dspring.datasource.username=postgres -Dspring.datasource.password=talentboost
+            ./gradlew --stacktrace clean assemble test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/ics -Dspring.datasource.username=postgres -Dspring.datasource.password=talentboost
       - name: Static code analysis
         run: cd backend && ./gradlew clean checkstyleMain
