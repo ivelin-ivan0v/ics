@@ -35,7 +35,8 @@ jobs:
             cd backend
             ./gradlew clean assemble bootRun -Dspring.datasource.url=jdbc:postgresql://localhost:5432/ics -Dspring.datasource.username=postgres -Dspring.datasource.password=talentboost &
             PID=$!
-            ./gradlew test --debug
+            sleep 20
+            ./gradlew test
             kill -9 $PID
       - name: Static code analysis
         run: cd backend && ./gradlew clean checkstyleMain
